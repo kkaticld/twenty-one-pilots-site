@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twenty One Pilots | 从地下室到全球</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent-yellow: #f5c518;
+            --accent-red: #e63946;
+            --bg-dark: #0a0a0a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08) 0%, 
+                rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(245, 197, 24, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(230, 57, 70, 0.05) 0%, transparent 50%);
+            animation: float 25s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-2%, 2%) rotate(3deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 80px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Content Sections */
+        .content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .chapter {
+            padding: 120px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .chapter h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 600;
+            margin-bottom: 32px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .chapter p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 24px;
+            line-height: 1.85;
+        }
+
+        .chapter p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--accent-yellow);
+        }
+
+        .highlight-red {
+            color: var(--accent-red);
+        }
+
+        /* Quote */
+        .quote {
+            padding: 48px;
+            margin: 48px 0;
+            border-left: 3px solid var(--accent-yellow);
+            font-size: 20px;
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-style: normal;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 16px;
+        }
+
+        /* Album Card */
+        .album-card {
+            margin: 48px 0;
+            padding: 32px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .album-info {
+            flex: 1;
+        }
+
+        .album-year {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .album-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .album-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .track-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .track-link:hover {
+            background: rgba(245, 197, 24, 0.15);
+            border-color: var(--accent-yellow);
+        }
+
+        .track-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* DEMA Section */
+        .dema-section {
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(230, 57, 70, 0.05) 50%,
+                transparent 100%);
+            padding: 80px 0;
+            margin: 48px 0;
+        }
+
+        .concept-grid {
+            display: grid;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .concept-item {
+            padding: 32px;
+            border-left: 2px solid var(--accent-red);
+        }
+
+        .concept-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .concept-item p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 8px;
+        }
+
+        .concept-item .meaning {
+            font-size: 14px;
+            color: var(--accent-yellow);
+        }
+
+        /* Timeline Marker */
+        .year-marker {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(245, 197, 24, 0.15);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-yellow);
+            margin-bottom: 16px;
+        }
+
+        /* Tags Section */
+        .tags-section {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .tags-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 32px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tag {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Listen Section */
+        .listen-section {
+            text-align: center;
+            padding: 80px 24px 120px;
+        }
+
+        .listen-section h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .listen-section p {
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
+        }
+
+        .platform-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .platform-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .platform-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .platform-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 48px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--accent-yellow);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .album-card {
+                flex-direction: column;
+            }
+
+            .quote {
+                padding: 32px 24px;
+            }
+
+            .chapter {
+                padding: 80px 0;
+            }
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Symbol */
+        .symbol {
+            font-family: monospace;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--accent-yellow);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Twenty One Pilots</h1>
+            <p class="hero-subtitle">
+                两个人，一架钢琴，一套鼓。<br>
+                一段从俄亥俄州地下室开始的故事。
+            </p>
+        </div>
+        <div class="scroll-hint">向下阅读</div>
+    </section>
+
+    <!-- Story Content -->
+    <div class="content">
+
+        <!-- Chapter 1: The Name -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 01</div>
+            <h2>一个戏剧启发的名字</h2>
+            
+            <p>
+                这个名字来自 Arthur Miller 的经典戏剧《推销员之死》。剧中，一位商人面临道德抉择：是坚守原则，还是为了利益让 21 名飞行员丧命。
+            </p>
+            <p>
+                Tyler Joseph 被这个困境击中了。他看到的不只是一个虚构的故事，而是每个人都会面对的问题：<span class="highlight">当没人在看的时候，你会做出什么选择？</span>
+            </p>
+            <p>
+                于是，这个名字成了一个提醒——关于责任、关于诚实面对自己。
+            </p>
+        </section>
+
+        <!-- Chapter 2: The Beginning -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 02</div>
+            <h2>地下室里的开始</h2>
+            
+            <div class="year-marker">2009 · 俄亥俄州哥伦布市</div>
+            
+            <p>
+                Tyler Joseph 在自家地下室录制音乐。没有厂牌，没有星探，没有预算。只有一个想要表达的年轻人，和一台二手录音设备。
+            </p>
+            <p>
+                最初的乐队有三个人，但两位成员相继离开。剩下 Tyler 一个人时，他遇到了 Josh Dun——一个在本地音乐圈打鼓的年轻人。两人一拍即合。
+            </p>
+            <p>
+                从那时起，Twenty One Pilots 就成了一个<span class="highlight">只有两个人</span>的乐队。这个配置听起来简陋，却成了他们最独特的标志。
+            </p>
+        </section>
+
+        <!-- Chapter 3: The Struggle -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 03</div>
+            <h2>DIY 年代</h2>
+            
+            <div class="year-marker">2009 - 2012</div>
+            
+            <p>
+                自己录音。自己发行。自己巡演。自己搬设备。他们开着一辆破旧的厢式货车，穿越美国各州，在只有几十人的小场地演出。
+            </p>
+            <p>
+                没有病毒式的走红，没有捷径。只是一场又一场的演出，一个又一个被他们的音乐击中的观众。口口相传。
+            </p>
+            
+            <div class="quote glass-card">
+                "我们在没有人相信我们的时候相信自己。那种感觉很孤独，但也让我们知道自己在做正确的事。"
+                <div class="quote-author">— Tyler Joseph</div>
+            </div>
+        </section>
+
+        <!-- Chapter 4: Blurryface -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 04</div>
+            <h2>黑暗人格的诞生</h2>
+            
+            <div class="album-card glass-card">
+                <div class="album-info">
+                    <div class="album-year">2015</div>
+                    <h3 class="album-title">Blurryface</h3>
+                    <p class="album-desc">
+                        Blurryface 不是一个角色，而是 Tyler 给自己脑海中那个负面声音取的名字。那个告诉你"你不够好"、"你会失败"、"没人真正喜欢你"的声音。
+                    </p>
+                    <p class="album-desc">
+                        他用黑色颜料涂抹自己的脖子和双手，让这个抽象的敌人变得可见。在主流音乐还在唱派对和浪漫的时候，他们已经在 Billboard 榜首谈论焦虑和自我怀疑。
+                    </p>
+                    <a href="https://open.spotify.com/track/3CRDbSIZ4r5MsZ0YwxuEkn" target="_blank" class="track-link">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        收听 Stressed Out
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 5: DEMA World -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 05</div>
+            <h2>虚构世界的诞生</h2>
+            
+            <p>
+                Blurryface 取得巨大成功后，他们面临一个选择：继续重复有效的公式，还是冒险做更大胆的事？
+            </p>
+            <p>
+                他们选择了后者。沉寂一年后，他们带着一个完整的虚构世界回归：<span class="highlight-red">DEMA</span>。
+            </p>
+            
+            <div class="dema-section">
+                <p>
+                    DEMA 是一座被高墙围绕的城市，由九位主教统治。居民被控制思想，禁止离开，甚至不知道外面还有世界。
+                </p>
+                <p>
+                    这不只是一个奇幻故事。每一个元素都是隐喻：
+                </p>
+                
+                <div class="concept-grid">
+                    <div class="concept-item glass-card">
+                        <h4>DEMA 城</h4>
+                        <p>被高墙围困的城市，居民无法离开</p>
+                        <p class="meaning">隐喻：你脑海中困住你的地方——抑郁、焦虑、恐惧</p>
+                    </div>
+                    
+                    <div class="concept-item glass-card">
+                        <h4>九位主教</h4>
+                        <p>统治 DEMA 的九个存在，其中 Nico 最为强大</p>
+                        <p class="meaning">隐喻：不同类型的负面情绪和心理障碍</p>
+                    </div>
+                    
+                    <div class="concept-item glass-card">
+                        <h4>Clancy</h4>
+                        <p>试图逃离 DEMA 的居民，通过书信记录自己的挣扎</p>
+                        <p class="meaning">隐喻：你自己——每一个正在与内心黑暗战斗的人</p>
+                    </div>
+                    
+                    <div class="concept-item glass-card">
+                        <h4>Banditos</h4>
+                        <p>穿黄色衣服的反抗军，在城外的壕沟中生活</p>
+                        <p class="meaning">隐喻：支持你的朋友、家人、粉丝社区</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 6: Trench -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 06</div>
+            <h2>第一次逃离</h2>
+            
+            <div class="album-card glass-card">
+                <div class="album-info">
+                    <div class="album-year">2018</div>
+                    <h3 class="album-title">Trench</h3>
+                    <p class="album-desc">
+                        Trench 是 DEMA 城外的壕沟地带，是 Banditos 反抗军的藏身之处。在这张专辑里，Clancy 第一次尝试逃离，发现了墙外的世界。
+                    </p>
+                    <p class="album-desc">
+                        音乐变得更加宏大、更有层次。他们不再只是在写歌，而是在构建一个可以居住的世界。
+                    </p>
+                    <a href="https://open.spotify.com/track/7kDFChsAxUvfVkpCXLVz9T" target="_blank" class="track-link">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        收听 Chlorine
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 7: Scaled and Icy -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 07</div>
+            <h2>被迫的快乐</h2>
+            
+            <div class="album-card glass-card">
+                <div class="album-info">
+                    <div class="album-year">2021</div>
+                    <h3 class="album-title">Scaled and Icy</h3>
+                    <p class="album-desc">
+                        专辑听起来轻快、明亮、充满希望。但这正是陷阱。
+                    </p>
+                    <p class="album-desc">
+                        在故事中，Clancy 被抓回了 DEMA，被迫创作"宣传音乐"来展示城市的美好。表面的快乐下藏着绝望。专辑名字的字母重新排列后，拼出的是：<span class="highlight-red">Clancy is dead</span>。
+                    </p>
+                    <a href="https://open.spotify.com/track/2TIlqbIneP0ZY1O0EzYLlc" target="_blank" class="track-link">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        收听 Shy Away
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 8: Clancy -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">Chapter 08</div>
+            <h2>最终决战</h2>
+            
+            <div class="album-card glass-card">
+                <div class="album-info">
+                    <div class="album-year">2024</div>
+                    <h3 class="album-title">Clancy</h3>
+                    <p class="album-desc">
+                        三部曲的终章。Clancy 带领 Banditos 反抗军，对九位主教发起最后的战斗。
+                    </p>
+                    <p class="album-desc">
+                        这是一个关于战胜内心黑暗的故事。不是靠逃避，而是靠直面。不是独自一人，而是和同伴一起。
+                    </p>
+                    <a href="https://open.spotify.com/track/4uMpnXRhWtyebvr4hLXNkB" target="_blank" class="track-link">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        收听 The Craving
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Note -->
+        <section class="chapter fade-in">
+            <div class="chapter-number">写在最后</div>
+            <h2>你不需要理解一切</h2>
+            
+            <p>
+                把歌当歌听，享受旋律和歌词，这就够了。
+            </p>
+            <p>
+                但如果你愿意深入，会发现这是一个越挖越深的兔子洞。每首歌的歌词、每个 MV 的画面、每张专辑的封面，都藏着线索。粉丝社区花了数年时间拼凑这些碎片。
+            </p>
+            <p>
+                这也是他们特别的地方：音乐不只是用来消费的产品，而是邀请你参与的体验。
+            </p>
+            
+            <div class="quote glass-card">
+                "我们想创造一个人们可以进入的世界，让抽象的情感变得可以看见和对抗。"
+                <div class="quote-author">— Tyler Joseph</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Tags Section -->
+    <section class="tags-section fade-in">
+        <div class="tags-title">如果非要贴标签</div>
+        <div class="tags">
+            <span class="tag">另类流行</span>
+            <span class="tag">电子摇滚</span>
+            <span class="tag">嘻哈</span>
+            <span class="tag">流派融合</span>
+            <span class="tag">概念专辑</span>
+            <span class="tag">独立起步</span>
+            <span class="tag">心理健康</span>
+            <span class="tag">两人乐队</span>
+            <span class="tag">格莱美得主</span>
+            <span class="tag">俄亥俄州</span>
+        </div>
+    </section>
+
+    <!-- Listen Section -->
+    <section class="listen-section">
+        <h2>开始聆听</h2>
+        <p>选择你常用的平台</p>
+        
+        <div class="platform-links">
+            <a href="https://open.spotify.com/artist/3YQKmKGau1PzlVlkL1iodx" target="_blank" class="platform-btn glass-card">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                Spotify
+            </a>
+            <a href="https://music.apple.com/artist/twenty-one-pilots/349736311" target="_blank" class="platform-btn glass-card">
+                <svg viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.8-.6-1.965-1.483-.18-.965.407-1.94 1.353-2.22.328-.097.663-.178.992-.27.327-.09.49-.276.503-.61.006-.14 0-.28 0-.42V9.15c0-.347-.08-.43-.423-.34-.873.227-1.745.46-2.617.692l-1.507.4c-.327.086-.406.183-.41.52v7.065c0 .376-.047.746-.2 1.095-.257.588-.69.98-1.29 1.19-.354.122-.72.194-1.09.222-.687.053-1.3-.124-1.823-.556-.402-.332-.602-.76-.626-1.27-.03-.648.2-1.19.684-1.615.348-.308.765-.483 1.206-.587.357-.084.72-.152 1.078-.23.283-.063.442-.234.464-.522.01-.12.003-.24.003-.36v-8.31c0-.456.104-.593.545-.707l5.503-1.467c.628-.167 1.256-.338 1.886-.5.318-.08.418.01.418.34v6.083z"/></svg>
+                Apple Music
+            </a>
+            <a href="https://y.qq.com/n/ryqq/singer/001BHLD14GpSFR" target="_blank" class="platform-btn glass-card">
+                QQ音乐
+            </a>
+            <a href="https://music.163.com/#/artist?id=38507" target="_blank" class="platform-btn glass-card">
+                网易云音乐
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="symbol">|-/</p>
+        <p style="margin-top: 16px;">
+            此页面为粉丝创作，非官方内容<br>
+            <a href="https://www.twentyonepilots.com" target="_blank">访问官方网站</a>
+        </p>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
